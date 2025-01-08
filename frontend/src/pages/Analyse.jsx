@@ -120,7 +120,7 @@ const Analysis = () => {
               <span className="text-xl font-bold">PostAnalizer</span>
             </div>
             <a
-              href="/"
+              href="https://github.com/Dev020403/socia-media-performance-analysis"
               className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors"
             >
               <Github size={20} />

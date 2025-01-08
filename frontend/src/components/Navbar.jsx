@@ -63,7 +63,7 @@ const isAnalysisPage = window.location.pathname === "/analysis";
 const NavLinks = ({ mobile }) => (
   <div className={`flex ${mobile ? "flex-col gap-4" : "items-center gap-8"}`}>
     <a
-      href="/"
+      href="https://github.com/Dev020403/socia-media-performance-analysis"
       className="text-gray-300 hover:text-white flex items-center gap-2"
     >
       <Github size={20} />
