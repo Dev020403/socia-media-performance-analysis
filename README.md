@@ -38,4 +38,4 @@ This project analyzes mock social media engagement data using **LangFlow** and *
 ---
 
 ## 📹 Demo Video  
-Check out our project walkthrough here: [YouTube Demo Link](#)   
+Check out our project walkthrough here: [https://youtu.be/It5A3q41ttE](#)   
