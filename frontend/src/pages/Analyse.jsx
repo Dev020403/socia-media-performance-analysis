@@ -5,6 +5,7 @@ import AnalysisOptions from "../components/AnalysisOptions";
 import DataPreview from "../components/DataPreview";
 import AnalysisResult from "../components/AnalysisResult";
 import { Film, Images, Image, Github, ArrowLeft } from "lucide-react";
+import AnalysisResultSkeleton from "../components/AnalysisResultSkeleton";
 
 const Analysis = () => {
   const [step, setStep] = useState(1);
@@ -69,43 +70,40 @@ const Analysis = () => {
       alert("Please enter a prompt");
       return;
     }
-
+    setAnalysis(null);
     setIsLoading(true);
     setTimeout(() => {
       const analysis = generateAnalysis(csvData, postType, prompt);
       setAnalysis(analysis);
       setIsLoading(false);
-    }, 1500);
+    }, 5000);
   };
 
   const generateAnalysis = (data, type, prompt) => {
     const responses = {
       reel: {
-        engagement: "Your Reels show a 4.2% average engagement rate",
-        recommendation: "Consider creating shorter, more dynamic content",
-        insights: "Peak viewing times are between 6-8 PM",
+        data: "Reels drive 2 times more comments compared to Carousel posts.\nCarousel posts have 35% higher engagement in terms of likes than Static images.\nStatic image posts have 0.5 times more comments compared to Carousel posts.\nReels have 18% lower engagement in terms of likes compared to Carousel posts.",
+        summary:
+          "These comparisons are based on the average number of comments and likes for each post type. The data suggests that Reels have higher engagement in terms of comments compared to Carousel posts, while Carousel posts have higher engagement in terms of likes compared to Static images.",
       },
       carousel: {
-        engagement: "Carousels achieve 3.8% engagement on average",
-        recommendation: "Use stronger opening slides to capture attention",
-        insights: "Posts with 4-5 slides perform best",
+        data: "Carousel posts have 35% higher engagement in terms of likes than Static images.\nStatic image posts have 0.5 times more comments compared to Carousel posts.Reels have 18% lower engagement in terms of likes compared to Carousel posts.\nCarousel posts have 1.8 times more likes compared to Reels.\nCarousel posts have 1.9 times more comments compared to Reels.",
+
+        summary:
+          "These comparisons are based on the average number of comments and likes for each post type. The data suggests that Carousel posts have higher engagement in terms of likes compared to Static images and Reels, while Reels have lower engagement in terms of likes compared to Carousel posts.",
       },
       static: {
-        engagement: "Static posts maintain 3.5% engagement",
-        recommendation: "Experiment with different image formats",
-        insights: "Portrait orientation gets 20% more engagement",
+        data: "Carousel posts have 35% higher engagement in terms of likes than Static images.\nStatic image posts have 0.5 times more comments compared to Carousel posts.\nReels have 18% lower engagement in terms of likes compared to Carousel posts.\nCarousel posts have 1.8 times more likes compared to Reels.\nCarousel posts have 1.9 times more comments compared to Reels.\nReels drive 2 times more comments compared to Carousel posts.",
+        summary:
+          "These comparisons are based on the average number of comments and likes for each post type. The data suggests that Carousel posts have higher engagement in terms of likes compared to Static images and Reels, while Reels have higher engagement in terms of comments compared to Carousel posts.",
       },
     };
 
     return {
       prompt: prompt,
-      response: `Based on your ${type} content analysis and the question "${prompt}":
-
-${responses[type].engagement}
-${responses[type].recommendation}
-${responses[type].insights}
-
-Additional context from your data shows patterns in engagement across different content styles and posting times.`,
+      question: `Based on your ${type} content analysis and the question "${prompt}"`,
+      response:`${responses[type].data}`,
+      summary:`${responses[type].summary}`,
       timestamp: new Date().toLocaleString(),
     };
   };
@@ -119,7 +117,7 @@ Additional context from your data shows patterns in engagement across different 
               <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center">
                 <span className="font-bold text-xl">P</span>
               </div>
-              <span className="text-xl font-bold">PostPulse</span>
+              <span className="text-xl font-bold">PostAnalizer</span>
             </div>
             <a
               href="/"
@@ -196,7 +194,7 @@ Additional context from your data shows patterns in engagement across different 
           <div>
             {step === 2 && analysis ? (
               <AnalysisResult analysis={analysis} />
-            ) : (
+            ) : !isLoading ? (
               <div className="bg-white/5 rounded-2xl p-6 backdrop-blur-sm border border-white/10">
                 <div className="flex items-center gap-2 mb-4">
                   <span className="text-lg font-medium">Analysis Result</span>
@@ -206,6 +204,8 @@ Additional context from your data shows patterns in engagement across different 
                   to generate an analysis.
                 </div>
               </div>
+            ) : (
+              <AnalysisResultSkeleton />
             )}
           </div>
         </div>

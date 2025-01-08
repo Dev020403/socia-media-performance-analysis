@@ -27,7 +27,7 @@ const Navbar = () => {
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 to-purple-600 flex items-center justify-center">
               <span className="text-white font-bold text-xl">P</span>
             </div>
-            <span className="text-white text-xl font-bold">PostPulse</span>
+            <span className="text-white text-xl font-bold">PostAnalizer</span>
           </div>
 
           {/* Desktop Menu */}
